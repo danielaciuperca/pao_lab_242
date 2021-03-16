@@ -1,5 +1,12 @@
 package model;
 
+import lombok.*;
+
+@Builder //generates a builder class using the Builder design pattern
+@Getter //generates getters for all attributes
+@Setter //generates setters for all attributes
+@ToString //generates toString()
+@EqualsAndHashCode //generates equals() and hashCode()
 public class Equipment extends Product {
     private String supplierName;
     private String supplierCountry;
@@ -11,19 +18,8 @@ public class Equipment extends Product {
         this.supplierCountry = supplierCountry;
     }
 
-    public String getSupplierName() {
-        return supplierName;
-    }
-
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
-    }
-
-    public String getSupplierCountry() {
-        return supplierCountry;
-    }
-
-    public void setSupplierCountry(String supplierCountry) {
-        this.supplierCountry = supplierCountry;
+    @Override
+    public String toString() {
+        return super.toString() + " / " + supplierName + " / " + supplierCountry;
     }
 }

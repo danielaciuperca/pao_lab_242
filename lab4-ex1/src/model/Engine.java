@@ -5,6 +5,12 @@ public class Engine {
     private int power;
     private int numberOfCylinders;
 
+    public Engine(String transmission, int power, int numberOfCylinders) {
+        this.transmission = transmission;
+        this.power = power;
+        this.numberOfCylinders = numberOfCylinders;
+    }
+
     public String getTransmission() {
         return transmission;
     }

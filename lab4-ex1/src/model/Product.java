@@ -1,10 +1,14 @@
 package model;
 
-public abstract class Product {
+public abstract class Product extends Object{
     protected long id;
     protected String name;
     protected double price;
     protected int stock;
+
+    public Product() {
+
+    }
 
     public Product(long id, String name, double price, int stock) {
         this.id = id;
@@ -43,5 +47,10 @@ public abstract class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    @Override //annotation
+    public String toString() {
+        return name + " / " + price + " / " + stock;
     }
 }

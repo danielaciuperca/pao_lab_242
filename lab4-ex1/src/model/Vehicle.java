@@ -4,6 +4,10 @@ public abstract class Vehicle extends Product {
     protected String model;
     protected boolean limitedEdition;
 
+    public Vehicle() {
+
+    }
+
     public Vehicle(long id, String name, double price, int stock, String model,
                    boolean limitedEdition) {
         super(id, name, price, stock);
@@ -25,5 +29,10 @@ public abstract class Vehicle extends Product {
 
     public void setLimitedEdition(boolean limitedEdition) {
         this.limitedEdition = limitedEdition;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " / " + model + " / " + limitedEdition;
     }
 }
