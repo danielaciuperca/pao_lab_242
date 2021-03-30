@@ -2,6 +2,9 @@ package service;
 
 import model.*;
 
+import java.io.*;
+import java.nio.file.*;
+
 public class NotificationService {
 
     /*
@@ -14,7 +17,7 @@ public class NotificationService {
             FileInputStream
             ByteArrayInputStream
 
-        high level
+        high level              --> Decorator design pattern
             InputStreamReader
             BufferedReader
             ObjectInputStream
@@ -26,12 +29,13 @@ public class NotificationService {
             FileOutputStream
             ByteArrayOutputStream
 
-        high level
+        high level              --> Decorator design pattern
             PrintStream
             PrintWriter
             ObjectOutputStream
             DataOutputStream
 
+      File
 
      java.nio
 
@@ -46,4 +50,23 @@ public class NotificationService {
                 notification.getReceiver().getEmail());
     }
 
+    public void createFolder(String folderName) throws IOException {
+        Path path = Paths.get(folderName);
+        Files.createDirectories(path);
+    }
+
+    public void createFile(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        Files.createFile(path);
+    }
+
+    public void deleteFile(String fileName) throws IOException {
+        Path path = Paths.get(fileName);
+        Files.deleteIfExists(path);
+    }
+
+    public void listFolder(String folderName) throws IOException {
+        Path path = Paths.get(folderName);
+        Files.list(path).forEach(p -> System.out.println(p));
+    }
 }

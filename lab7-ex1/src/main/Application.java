@@ -1,19 +1,33 @@
 package main;
 
+import exception.*;
 import model.*;
 import service.*;
 
+import java.io.*;
 import java.util.*;
 
+/*
+    Exceptions
+
+            Throwable
+    Error                  Exception
+
+                RuntimeException        checked exceptions
+
+                NullPointerException,           IOException,
+                IllegalArgumentException,       SqlException
+                ArithmeticException
+ */
 public class Application {
     /*TODO Add the following use cases to the application:
     - save the notifications in a file with the name notifications.txt, in a resources/notifications folder
 
     - create a folder for the notifications
-    create notification folder <folder name>
+    create folder <folder name>
 
     - create a file for the notifications
-    create notification file <filename>
+    create file <filename>
 
     - delete the file
     delete notification file <filename>
@@ -47,6 +61,47 @@ public class Application {
                     System.out.println("Bye bye!");
                     System.exit(0);
                     break;
+                case "create folder" : {
+                    System.out.println("Please provide the folder name:");
+                    String folderName = scanner.nextLine();
+                    try {
+                        notificationService.createFolder(folderName);
+                    } catch (IOException e) {
+                        System.out.println("Cannot create folder with name " + folderName);
+                    }
+                    break;
+                }
+                case "create file" : {
+                    System.out.println("Please provide the file name:");
+                    String fileName = scanner.nextLine();
+                    try {
+                        notificationService.createFile(fileName);
+                    } catch (IOException e) {
+                        System.out.println("Cannot create file with name " + fileName);
+                    }
+                    break;
+                }
+                case "delete file" : {
+                    System.out.println("Please provide the file name to be deleted:");
+                    String fileName = scanner.nextLine();
+                    try {
+                        notificationService.deleteFile(fileName);
+                    } catch (IOException e) {
+                        System.out.println("Cannot delete file with name " + fileName);
+                    }
+                    break;
+                }
+                case "list":
+                {
+                    System.out.println("Please provide the folder name:");
+                    String folderName = scanner.nextLine();
+                    try {
+                        notificationService.listFolder(folderName);
+                    } catch (IOException e) {
+                        System.out.println("Cannot list files from folder with name " + folderName);
+                    }
+                    break;
+                }
                 default : System.out.println("This command doesn't exist.");
             }
         }
@@ -58,18 +113,31 @@ public class Application {
         switch(productType) {
             case "bicycle" : {
                 System.out.println("Please specify the bicycle details: name/price/stock/model/limitedEdition/height");
+                //TODO add exception handling, similar to the add equipment use case
                 shopService.addProduct(shop, productService.buildBicycle(scanner.nextLine()));
                 break;
             }
             case "car" : {
                 System.out.println("Please specify the car details: " +
                         "name/price/stock/model/limitedEdition/color/transmission/power/numberOfCylinders");
+                //TODO add exception handling, similar to the add equipment use case
                 shopService.addProduct(shop, productService.buildCar(scanner.nextLine()));
                 break;
             }
             case "equipment" : {
                 System.out.println("Please specify the equipment details: name/price/stock/supplierName/supplierCountry");
-                shopService.addProduct(shop, productService.buildEquipment(scanner.nextLine()));
+                try {
+                    Product product = productService.buildEquipment(scanner.nextLine());
+                    shopService.addProduct(shop, product);
+                } catch(NumberFormatException e) { //multi-catch: catch(NumberFormatException | ArrayIndexOutOfBoundsException e)
+                    System.out.println("Invalid inputs for product creation. The product was not added to the shop.");
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Not enough inputs for product creation. The product was not added to the shop.");
+                } catch(TooManyProductsException e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    System.out.println(":)");
+                }
                 break;
             }
             default : System.out.println("This product type doesn't exist.");

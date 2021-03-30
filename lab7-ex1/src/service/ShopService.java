@@ -1,5 +1,6 @@
 package service;
 
+import exception.*;
 import model.*;
 
 public class ShopService {
@@ -11,11 +12,15 @@ public class ShopService {
 
     public void addProduct(Shop shop, Product product) {
         int nextAvailableIndex = getNumberOfProducts(shop);
-        shop.getProducts()[nextAvailableIndex] = product;
+        if(nextAvailableIndex < shop.getProducts().length) {
+            shop.getProducts()[nextAvailableIndex] = product;
 
-        String message = "Product " + product + " was added to the shop";
-        Receiver receiver = new Receiver("John", "john@gmail.com");
-        notificationService.sendNotification(new Notification(message, "office@shop.com", receiver));
+            String message = "Product " + product + " was added to the shop";
+            Receiver receiver = new Receiver("John", "john@gmail.com");
+            notificationService.sendNotification(new Notification(message, "office@shop.com", receiver));
+        } else {
+            throw new TooManyProductsException();
+        }
     }
 
     public void printProductsDetails(Shop shop) {
