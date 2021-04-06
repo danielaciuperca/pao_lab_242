@@ -1,10 +1,10 @@
 package streams.model;
 
 public class Ticket {
-    String origin;
-    String destination;
-    Client client;
-    double price;
+    private String origin;
+    private String destination;
+    private Client client;
+    private double price;
     
     public Ticket(String origin, String destination, Client client, double price) {
        this.origin = origin;
