@@ -44,10 +44,47 @@ public class NotificationService {
         Paths
     */
 
-    //TODO write the notifications in a csv file
+    private static final String DIRECTORY_PATH = "resources/notifications";
+    private static final String FILE_PATH = DIRECTORY_PATH + "/notifications.txt";
+
     public void sendNotification(Notification notification) {
-        System.out.println("Notification <" + notification.getMessage() + "> successfully sent to " +
-                notification.getReceiver().getEmail());
+        if(!Files.exists(Paths.get(DIRECTORY_PATH))) {
+            try {
+                Files.createDirectories(Paths.get(DIRECTORY_PATH));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        if(!Files.exists(Paths.get(FILE_PATH))) {
+            try {
+                Files.createFile(Paths.get(FILE_PATH));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        try {
+            BufferedWriter writer = Files.newBufferedWriter(Paths.get(FILE_PATH),
+                    StandardOpenOption.APPEND);
+            writer.write("Notification <" + notification.getMessage() +
+                    "> successfully sent to " + notification.getReceiver().getEmail() + "\n");
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void viewNotifications(String filename) {
+        try {
+            BufferedReader reader = Files.newBufferedReader(Paths.get(filename));
+            String line = "";
+            while((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (NoSuchFileException e) {
+            System.out.println("The file with the name " + filename + " doesn't exist.");
+        } catch (IOException e) {
+            System.out.println(e.getClass() + " " + e.getMessage());
+        }
     }
 
     public void createFolder(String folderName) throws IOException {

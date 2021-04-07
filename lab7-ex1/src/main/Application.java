@@ -51,16 +51,19 @@ public class Application {
             System.out.println("Please type one of the following commands: add, view or exit");
             String line = scanner.nextLine();
             switch(line) {
-                case "add" :
+                case "add" : {
                     addProduct(shop, productService, shopService, scanner);
                     break;
-                case "view" :
+                }
+                case "view" : {
                     shopService.printProductsDetails(shop);
                     break;
-                case "exit" :
+                }
+                case "exit" : {
                     System.out.println("Bye bye!");
                     System.exit(0);
                     break;
+                }
                 case "create folder" : {
                     System.out.println("Please provide the folder name:");
                     String folderName = scanner.nextLine();
@@ -102,6 +105,9 @@ public class Application {
                     }
                     break;
                 }
+                case "view notifications" :
+                    notificationService.viewNotifications(scanner.nextLine());
+                    break;
                 default : System.out.println("This command doesn't exist.");
             }
         }
@@ -113,15 +119,31 @@ public class Application {
         switch(productType) {
             case "bicycle" : {
                 System.out.println("Please specify the bicycle details: name/price/stock/model/limitedEdition/height");
-                //TODO add exception handling, similar to the add equipment use case
-                shopService.addProduct(shop, productService.buildBicycle(scanner.nextLine()));
+                try {
+                    Product product = productService.buildBicycle(scanner.nextLine());
+                    shopService.addProduct(shop, product);
+                } catch(NumberFormatException e) { //multi-catch: catch(NumberFormatException | ArrayIndexOutOfBoundsException e)
+                    System.out.println("Invalid inputs for product creation. The product was not added to the shop.");
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Not enough inputs for product creation. The product was not added to the shop.");
+                } catch(TooManyProductsException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
             case "car" : {
                 System.out.println("Please specify the car details: " +
                         "name/price/stock/model/limitedEdition/color/transmission/power/numberOfCylinders");
-                //TODO add exception handling, similar to the add equipment use case
-                shopService.addProduct(shop, productService.buildCar(scanner.nextLine()));
+                try {
+                    Product product = productService.buildCar(scanner.nextLine());
+                    shopService.addProduct(shop, product);
+                } catch(NumberFormatException e) { //multi-catch: catch(NumberFormatException | ArrayIndexOutOfBoundsException e)
+                    System.out.println("Invalid inputs for product creation. The product was not added to the shop.");
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Not enough inputs for product creation. The product was not added to the shop.");
+                } catch(TooManyProductsException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             }
             case "equipment" : {
@@ -135,8 +157,6 @@ public class Application {
                     System.out.println("Not enough inputs for product creation. The product was not added to the shop.");
                 } catch(TooManyProductsException e) {
                     System.out.println(e.getMessage());
-                } finally {
-                    System.out.println(":)");
                 }
                 break;
             }
