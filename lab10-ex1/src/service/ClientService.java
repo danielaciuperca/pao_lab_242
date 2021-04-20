@@ -5,6 +5,21 @@ import model.*;
 import java.util.*;
 
 public class ClientService {
+//    private static final ClientService INSTANCE = new ClientService();  //eager singleton
+
+    private static ClientService INSTANCE;
+
+    private ClientService() {
+
+    }
+
+    public static ClientService getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new ClientService(); //lazy singleton
+        }
+        return INSTANCE;
+    }
+
     public List<Client> getClients() {
         return List.of(
                 new Client("Adrian Popescu", "Blv.Dacia Nr.30 Bucuresti",

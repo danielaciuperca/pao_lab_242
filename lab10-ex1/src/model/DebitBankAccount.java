@@ -5,8 +5,8 @@ public class DebitBankAccount extends BankAccount {
     private double withdrawalLimit;
 
     public DebitBankAccount(Client client, double balance, String accountNumber,
-                            String cardNumber, double withdrawalLimit) {
-        super(client, balance, accountNumber);
+                            BankAccountStatus status, String cardNumber, double withdrawalLimit) {
+        super(client, balance, accountNumber, status);
         this.cardNumber = cardNumber;
         this.withdrawalLimit = withdrawalLimit;
     }

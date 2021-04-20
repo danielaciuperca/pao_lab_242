@@ -4,11 +4,13 @@ public abstract class BankAccount implements Comparable<BankAccount> {
     protected Client client;
     protected double balance;
     protected String accountNumber;
+    protected BankAccountStatus status;
 
-    public BankAccount(Client client, double balance, String accountNumber) {
+    public BankAccount(Client client, double balance, String accountNumber, BankAccountStatus status) {
         this.client = client;
         this.balance = balance;
         this.accountNumber = accountNumber;
+        this.status = status;
     }
 
     public Client getClient() {
@@ -33,6 +35,14 @@ public abstract class BankAccount implements Comparable<BankAccount> {
 
     public String getAccountNumber() {
         return accountNumber;
+    }
+
+    public BankAccountStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BankAccountStatus status) {
+        this.status = status;
     }
 
     @Override

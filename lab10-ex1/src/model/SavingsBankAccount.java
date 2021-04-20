@@ -3,8 +3,8 @@ package model;
 public class SavingsBankAccount extends BankAccount {
     private int term;
 
-    public SavingsBankAccount(Client client, double balance, String accountNumber, int term) {
-        super(client, balance, accountNumber);
+    public SavingsBankAccount(Client client, double balance, String accountNumber, BankAccountStatus status, int term) {
+        super(client, balance, accountNumber, status);
         this.term = term;
     }
 
