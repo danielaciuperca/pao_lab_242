@@ -3,6 +3,8 @@ package main.service;
 import main.model.*;
 import main.repository.*;
 
+import java.util.*;
+
 public class BankAccountService {
     private BankAccountRepository bankAccountRepository;
 
@@ -21,5 +23,9 @@ public class BankAccountService {
 
     public void addBankAccount(BankAccount bankAccount) {
         bankAccountRepository.addBankAccount(bankAccount);
+    }
+
+    public Optional<BankAccount> getBankAccountById(long id) {
+        return bankAccountRepository.getBankAccountById(id);
     }
 }

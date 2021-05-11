@@ -64,4 +64,13 @@ public class BankAccount {
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
+
+    @Override
+    public String toString() {
+        return  id +
+                ", " + accountNumber +
+                ", " + balance +
+                ", " + type +
+                ", " + cardNumber;
+    }
 }

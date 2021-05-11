@@ -20,7 +20,11 @@ public class Application {
                     break;
                 }
                 case "get" : {
-                    //TODO
+                    Optional<BankAccount> bankAccount =
+                            bankAccountService.getBankAccountById(Long.valueOf(scanner.nextLine()));
+                    if(bankAccount.isPresent()) {
+                        System.out.println(bankAccount.get());
+                    }
                     break;
                 }
                 case "get total amount" : {
