@@ -28,6 +28,7 @@ public class Application {
                     break;
                 }
                 case "exit" : {
+                    System.out.println("Bye...");
                     System.exit(0);
                 }
                 default : System.out.println("This command doesn't exist.");
@@ -40,7 +41,7 @@ public class Application {
         System.out.println("Please specify the bank account details: accountNumber/balance/type/cardNumber");
         try {
             BankAccount bankAccount = bankAccountService.build(scanner.nextLine());
-            //TODO
+            bankAccountService.addBankAccount(bankAccount);
         } catch (NumberFormatException e) {
             System.out.println("Invalid inputs for bank account creation. The bank account was not saved in the db.");
         } catch (ArrayIndexOutOfBoundsException e) {

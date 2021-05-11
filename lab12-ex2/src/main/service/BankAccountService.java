@@ -18,4 +18,8 @@ public class BankAccountService {
         String cardNumber = attributes[3];
         return new BankAccount(accountNumber, balance, type, cardNumber);
     }
+
+    public void addBankAccount(BankAccount bankAccount) {
+        bankAccountRepository.addBankAccount(bankAccount);
+    }
 }
