@@ -1,7 +1,10 @@
 package main;
 
-public class Application {
-    public static void main(String[] args) {
+import main.gui.*;
 
+public class Application {
+    //Java Swing
+    public static void main(String[] args) {
+        new MainFrame().setVisible(true);
     }
 }
