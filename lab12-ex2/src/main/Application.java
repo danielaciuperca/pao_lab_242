@@ -28,7 +28,8 @@ public class Application {
                     break;
                 }
                 case "get total amount" : {
-                    //TODO
+                    System.out.println("Please specify the bank account type: ");
+                    System.out.println(bankAccountService.getTotalAmountByType(BankAccountType.valueOf(scanner.nextLine())));
                     break;
                 }
                 case "exit" : {

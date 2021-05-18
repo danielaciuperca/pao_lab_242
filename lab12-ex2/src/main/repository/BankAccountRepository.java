@@ -46,4 +46,21 @@ public class BankAccountRepository {
         }
         return Optional.empty();
     }
+
+    public double getTotalAmountByType(BankAccountType type) {
+        double result = 0;
+
+        String sql = "{? = call total_amount_per_type(?)}";
+
+        try (CallableStatement stmt = DatabaseConnection.getInstance().prepareCall(sql)) {
+            stmt.registerOutParameter(1, Types.DOUBLE);
+            stmt.setString(2, type.toString());
+            stmt.execute();
+            result = stmt.getDouble(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

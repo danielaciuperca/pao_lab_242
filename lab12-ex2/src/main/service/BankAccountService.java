@@ -28,4 +28,8 @@ public class BankAccountService {
     public Optional<BankAccount> getBankAccountById(long id) {
         return bankAccountRepository.getBankAccountById(id);
     }
+
+    public double getTotalAmountByType(BankAccountType type) {
+        return bankAccountRepository.getTotalAmountByType(type);
+    }
 }
